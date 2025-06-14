@@ -1,245 +1,200 @@
-# Beauty Assistant
+# Beauty Assistant 💄
 
-一个基于Flutter开发的美妆助手应用，提供面部分析、肤质检测、个性化化妆品推荐和AR虚拟试妆功能。
+A Flutter-based beauty assistant application with AI-powered facial analysis and AR try-on features.
 
-## 功能特性
+## 🌟 Features
 
-- 🔍 **面部分析**: 智能识别面部特征和肤质类型
-- 👁️ **眼睛颜色检测**: 精准识别眼部色彩
-- 💇 **发色分析**: 专业发色识别和建议
-- 🌟 **肤色特征分析**: 准确判断肤色类型和色调
-- 🧴 **肤质检测**: 油皮、干皮、混油皮智能识别
-- 💄 **个性化推荐**: 基于分析结果的化妆品推荐
-- 📱 **AR试妆**: 虚拟上妆效果预览
-- 🔐 **用户认证**: Google登录和邮箱注册
+- **User Authentication**: Secure sign-in with email/password and Google OAuth
+- **Camera Integration**: Real-time camera preview with photo capture
+- **AR Try-On**: Virtual makeup try-on using augmented reality
+- **Facial Analysis**: AI-powered analysis of facial features and skin tone
+- **Product Recommendations**: Personalized beauty product suggestions
+- **Modern UI**: Clean, intuitive interface with custom design system
 
-## 技术栈
+## 🏗️ Architecture
 
-### 前端
-- **框架**: Flutter 3.7.2+
-- **开发语言**: Dart
-- **UI组件**: Material Design 3
-- **状态管理**: StatefulWidget
-- **相机功能**: Camera Plugin
-- **权限管理**: Permission Handler
-- **认证**: Google Sign-In
+### Frontend (Flutter)
+- **Framework**: Flutter 3.7.2+
+- **Language**: Dart
+- **UI Components**: Custom design system with consistent theming
+- **State Management**: Built-in Flutter state management
+- **Camera**: Camera plugin for photo capture and AR features
+- **Authentication**: Google Sign-In integration
 
-### 后端
-- **API框架**: FastAPI (Python)
-- **数据库**: MySQL with SQLAlchemy ORM
-- **认证**: JWT + OAuth2
-- **图像处理**: Pillow + NumPy
-- **部署**: Uvicorn ASGI Server
+### Backend (FastAPI)
+- **Framework**: FastAPI
+- **Database**: MySQL with SQLAlchemy ORM
+- **Authentication**: JWT tokens with bcrypt password hashing
+- **Image Processing**: Pillow for image manipulation
+- **API Documentation**: Auto-generated with Swagger/OpenAPI
 
-### 平台支持
-- ✅ Android
-- ✅ iOS
-- ✅ Web
-- ✅ Windows
-- ✅ macOS
-- ✅ Linux
+## 📱 Screenshots
 
-## 项目结构
+*Screenshots will be added as the app development progresses*
 
-```
-beauty_assistant/
-├── lib/                          # Flutter应用主代码
-│   ├── core/                     # 核心功能模块
-│   │   └── theme/               # 主题和样式
-│   ├── screens/                 # 页面组件
-│   │   ├── sign_in_screen.dart  # 登录页面
-│   │   └── camera_screen.dart   # 相机分析页面
-│   └── main.dart                # 应用入口
-├── fastapi/                     # 后端API服务
-│   ├── main.py                  # FastAPI主应用
-│   ├── config.py                # 配置文件
-│   ├── database.py              # 数据库连接
-│   ├── models.py                # 数据模型
-│   ├── schemas/                 # Pydantic模式
-│   └── requirements.txt         # Python依赖
-├── assets/                      # 资源文件
-│   ├── images/                  # 图片资源
-│   ├── icons/                   # 图标文件
-│   └── vectors/                 # 矢量图形
-├── android/                     # Android平台配置
-├── ios/                         # iOS平台配置
-├── web/                         # Web平台配置
-├── windows/                     # Windows平台配置
-├── macos/                       # macOS平台配置
-├── linux/                       # Linux平台配置
-└── pubspec.yaml                 # Flutter依赖配置
-```
+## 🚀 Getting Started
 
-## 开始使用
+### Prerequisites
 
-### 环境要求
+- Flutter SDK (3.7.2 or higher)
+- Dart SDK
+- Python 3.8+
+- MySQL database
+- Android Studio / VS Code
 
-- **Flutter SDK**: 3.7.2 或更高版本
-- **Dart SDK**: 3.7.2 或更高版本
-- **Android Studio**: 最新版本 (Android开发)
-- **Xcode**: 最新版本 (iOS开发)
-- **Python**: 3.8+ (后端API)
-- **MySQL**: 8.0+ (数据库)
+### Frontend Setup
 
-### 安装步骤
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/JiaErrr/Beauty-Assistant.git
+   cd Beauty-Assistant
+   ```
 
-#### 1. 克隆项目
-```bash
-git clone https://github.com/JiaErrr/Beauty-Assistant.git
-cd Beauty-Assistant
-```
+2. **Install Flutter dependencies**
+   ```bash
+   flutter pub get
+   ```
 
-#### 2. 设置Flutter环境
-```bash
-# 检查Flutter环境
-flutter doctor
+3. **Run the app**
+   ```bash
+   flutter run
+   ```
 
-# 安装依赖
-flutter pub get
-```
+### Backend Setup
 
-#### 3. 设置后端服务
-```bash
-cd fastapi
+1. **Navigate to the FastAPI directory**
+   ```bash
+   cd fastapi
+   ```
 
-# 创建虚拟环境
-python -m venv .venv
+2. **Create a virtual environment**
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
 
-# 激活虚拟环境
-# Windows
-.venv\Scripts\activate
-# macOS/Linux
-source .venv/bin/activate
+3. **Install Python dependencies**
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-# 安装依赖
-pip install -r requirements.txt
+4. **Configure environment variables**
+   ```bash
+   cp .env.example .env
+   # Edit .env with your database credentials
+   ```
 
-# 配置环境变量
-cp .env.example .env
-# 编辑 .env 文件，设置数据库连接等配置
-```
+5. **Start the server**
+   ```bash
+   python start_server.py
+   ```
 
-#### 4. 数据库设置
-```bash
-# 创建MySQL数据库
-mysql -u root -p
-CREATE DATABASE beauty_assistant;
+   The API will be available at `http://localhost:8000`
+   API documentation at `http://localhost:8000/docs`
 
-# 运行数据库迁移（自动创建表）
-python main.py
-```
+## 🗄️ Database Schema
 
-#### 5. 启动服务
+### Users Table
+- User authentication and profile information
+- Email, username, hashed passwords
+- Account status and timestamps
 
-**启动后端API:**
-```bash
-cd fastapi
-python start_server.py
-# 或者
-uvicorn main:app --reload --host 0.0.0.0 --port 8000
-```
+### Face Analysis Table
+- Facial feature analysis results
+- Skin tone, face shape, eye color detection
+- Confidence scores and analysis metadata
 
-**启动Flutter应用:**
-```bash
-# 在项目根目录
-flutter run
+### Products Table
+- Beauty product catalog
+- Brand, category, pricing information
+- Compatibility with different skin tones/types
 
-# 或指定设备
-flutter run -d chrome  # Web
-flutter run -d windows # Windows
-```
+### Recommendations Table
+- Personalized product recommendations
+- Match scores and recommendation reasons
+- User interaction tracking (likes, purchases)
 
-## 开发指南
+## 🎨 Design System
 
-### 代码规范
+### Colors
+- **Primary**: Modern purple gradient (#8B5CF6 to #A855F7)
+- **Secondary**: Complementary accent colors
+- **Neutral**: Grayscale palette for text and backgrounds
+- **Semantic**: Success, warning, and error states
 
-- 遵循 [Dart Style Guide](https://dart.dev/guides/language/effective-dart/style)
-- 使用 `flutter analyze` 检查代码质量
-- 使用 `dart format` 格式化代码
-- 遵循 [Conventional Commits](https://www.conventionalcommits.org/) 提交规范
+### Typography
+- **Headings**: Platypi font family
+- **Body**: System fonts with fallbacks
+- **Weights**: Light (300) to Bold (700)
 
-### Git工作流
+## 📦 Dependencies
 
-1. 从 `main` 分支创建功能分支
-2. 开发完成后提交 Pull Request
-3. 代码审查通过后合并到 `main`
-4. 使用语义化版本控制
+### Flutter Dependencies
+- `camera`: Camera functionality
+- `flutter_svg`: SVG icon support
+- `google_sign_in`: Google authentication
+- `http`: API communication
+- `permission_handler`: Device permissions
+- `email_validator`: Email validation
 
-### API文档
+### Python Dependencies
+- `fastapi`: Web framework
+- `uvicorn`: ASGI server
+- `sqlalchemy`: Database ORM
+- `pymysql`: MySQL connector
+- `pydantic`: Data validation
+- `python-jose`: JWT handling
+- `passlib`: Password hashing
+- `pillow`: Image processing
 
-后端API文档可在以下地址查看：
-- Swagger UI: `http://localhost:8000/docs`
-- ReDoc: `http://localhost:8000/redoc`
+## 🔧 Development
 
-## 测试
+### Code Style
+- Follow Flutter/Dart conventions
+- Use meaningful variable and function names
+- Implement proper error handling
+- Add comments for complex logic
 
-### Flutter测试
-```bash
-# 运行单元测试
-flutter test
+### Git Workflow
+- Use conventional commit messages
+- Create feature branches for new functionality
+- Submit pull requests for code review
 
-# 运行集成测试
-flutter test integration_test/
-```
+## 🚀 Deployment
 
-### 后端测试
-```bash
-cd fastapi
-pytest
-```
+### Frontend
+- Build for Android: `flutter build apk`
+- Build for iOS: `flutter build ios`
+- Web deployment: `flutter build web`
 
-### 设备测试
-```bash
-# 启动Android模拟器
-flutter emulators --launch Pixel_7_API_34
+### Backend
+- Deploy FastAPI with Docker
+- Use environment variables for configuration
+- Set up database migrations
+- Configure reverse proxy (nginx)
 
-# 启动iOS模拟器
-open -a Simulator
-```
+## 🤝 Contributing
 
-## 部署
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'feat: add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-### Flutter应用
-```bash
-# Android APK
-flutter build apk --release
+## 📄 License
 
-# iOS IPA
-flutter build ios --release
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-# Web应用
-flutter build web --release
-```
+## 👥 Team
 
-### 后端API
-```bash
-# 使用Docker部署
-docker build -t beauty-assistant-api .
-docker run -p 8000:8000 beauty-assistant-api
-```
+- **Developer**: JiaErrr
+- **Project Type**: Final Year Project (FYP)
+- **Institution**: [Your Institution Name]
 
-## 贡献指南
+## 📞 Support
 
-1. Fork 本仓库
-2. 创建功能分支 (`git checkout -b feature/amazing-feature`)
-3. 提交更改 (`git commit -m 'feat: add amazing feature'`)
-4. 推送到分支 (`git push origin feature/amazing-feature`)
-5. 创建 Pull Request
-
-## 许可证
-
-MIT License - 详见 [LICENSE](LICENSE) 文件
-
-## 联系方式
-
-- 项目维护者: JiaErrr
-- GitHub: [@JiaErrr](https://github.com/JiaErrr)
-- 项目链接: [https://github.com/JiaErrr/Beauty-Assistant](https://github.com/JiaErrr/Beauty-Assistant)
-
-## 致谢
-
-感谢所有为这个项目做出贡献的开发者和用户！
+For support and questions, please open an issue in the GitHub repository.
 
 ---
 
-**Beauty Assistant** - 让美丽触手可及 ✨
+**Beauty Assistant** - Enhancing beauty through technology 💄✨

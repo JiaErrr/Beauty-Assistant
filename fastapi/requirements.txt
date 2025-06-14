@@ -1,0 +1,31 @@
+# FastAPI and core dependencies
+fastapi==0.115.12
+uvicorn[standard]==0.32.1
+
+# Database dependencies
+sqlalchemy==2.0.36
+pymysql==1.1.1
+cryptography==44.0.0
+
+# Data validation and serialization
+pydantic==2.10.3
+pydantic-settings==2.7.0
+
+# Environment variables
+python-dotenv==1.0.1
+
+# Authentication and security
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+python-multipart==0.0.20
+
+# Image processing for beauty analysis
+Pillow==11.0.0
+numpy==2.2.1
+
+# HTTP client for external APIs
+httpx==0.28.1
+
+# Development dependencies
+pytest==8.3.4
+pytest-asyncio==0.25.0

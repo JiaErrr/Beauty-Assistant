@@ -33,10 +33,14 @@ class AppColors {
   static const Color onSurface = textPrimary;
 
   // 透明度变体
-  static Color brandPrimaryWithOpacity(double opacity) => brandPrimary.withOpacity(opacity);
-  static Color brandSecondaryWithOpacity(double opacity) => brandSecondary.withOpacity(opacity);
-  static Color textPrimaryWithOpacity(double opacity) => textPrimary.withOpacity(opacity);
-  static Color textSecondaryWithOpacity(double opacity) => textSecondary.withOpacity(opacity);
+  static Color brandPrimaryWithOpacity(double opacity) =>
+      brandPrimary.withOpacity(opacity);
+  static Color brandSecondaryWithOpacity(double opacity) =>
+      brandSecondary.withOpacity(opacity);
+  static Color textPrimaryWithOpacity(double opacity) =>
+      textPrimary.withOpacity(opacity);
+  static Color textSecondaryWithOpacity(double opacity) =>
+      textSecondary.withOpacity(opacity);
 
   // 渐变色
   static const LinearGradient primaryGradient = LinearGradient(
@@ -44,15 +48,3 @@ class AppColors {
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
   );
-
-  static const LinearGradient surfaceGradient = LinearGradient(
-    colors: [surfaceDefault, surfacePink],
-    begin: Alignment.topCenter,
-    end: Alignment.bottomCenter,
-  );
-
-  // Material Design 3 兼容性
-  static const Color outline = Color(0xFFE2E2DF);
-  static const Color surfaceVariant = Color(0xFFF5F5F5);
-  static const Color error = Color(0xFFB3261E);
-}

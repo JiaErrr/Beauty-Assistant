@@ -1,58 +1,68 @@
-"""User-related Pydantic schemas for request/response validation."""
+#!/usr/bin/env python3
+"""
+Pydantic Schemas for User Management
 
-from pydantic import BaseModel, EmailStr, Field, ConfigDict
+This module contains Pydantic models for user authentication,
+registration, and profile management.
+"""
+
+from pydantic import BaseModel, EmailStr, Field
 from typing import Optional
 from datetime import datetime
 
 
 class UserBase(BaseModel):
     """Base user schema with common fields."""
+    
     email: EmailStr = Field(..., description="User's email address")
     username: str = Field(..., min_length=3, max_length=50, description="Unique username")
     full_name: Optional[str] = Field(None, max_length=200, description="User's full name")
 
 
 class UserCreate(UserBase):
-    """Schema for creating a new user."""
-    password: str = Field(..., min_length=8, description="User's password (min 8 characters)")
+    """Schema for user registration."""
     
-    model_config = ConfigDict(
-        json_schema_extra={
+    password: str = Field(..., min_length=8, max_length=100, description="User's password")
+    confirm_password: str = Field(..., description="Password confirmation")
+    
+    class Config:
+        json_schema_extra = {
             "example": {
                 "email": "user@example.com",
                 "username": "johndoe",
                 "full_name": "John Doe",
-                "password": "securepassword123"
+                "password": "securepassword123",
+                "confirm_password": "securepassword123"
             }
         }
-    )
 
 
 class UserLogin(BaseModel):
     """Schema for user login."""
-    email: EmailStr = Field(..., description="User's email address")
+    
+    username: str = Field(..., description="Username or email")
     password: str = Field(..., description="User's password")
     
-    model_config = ConfigDict(
-        json_schema_extra={
+    class Config:
+        json_schema_extra = {
             "example": {
-                "email": "user@example.com",
+                "username": "johndoe",
                 "password": "securepassword123"
             }
         }
-    )
 
 
 class UserResponse(UserBase):
     """Schema for user response (excludes sensitive data)."""
+    
     id: int
     is_active: bool
     created_at: datetime
     updated_at: Optional[datetime] = None
     
-    model_config = ConfigDict(
-        from_attributes=True,
-        json_schema_extra={
+    class Config:
+        from_attributes = True
+        json_schema_extra = {
             "example": {
                 "id": 1,
                 "email": "user@example.com",
@@ -63,34 +73,63 @@ class UserResponse(UserBase):
                 "updated_at": "2024-01-01T00:00:00Z"
             }
         }
-    )
 
 
 class UserUpdate(BaseModel):
-    """Schema for updating user information."""
-    username: Optional[str] = Field(None, min_length=3, max_length=50)
-    full_name: Optional[str] = Field(None, max_length=200)
+    """Schema for user profile updates."""
     
-    model_config = ConfigDict(
-        json_schema_extra={
+    email: Optional[EmailStr] = Field(None, description="User's email address")
+    username: Optional[str] = Field(None, min_length=3, max_length=50, description="Unique username")
+    full_name: Optional[str] = Field(None, max_length=200, description="User's full name")
+    
+    class Config:
+        json_schema_extra = {
             "example": {
+                "email": "newemail@example.com",
                 "username": "newusername",
                 "full_name": "New Full Name"
             }
         }
-    )
 
 
 class PasswordChange(BaseModel):
-    """Schema for changing user password."""
-    current_password: str = Field(..., description="Current password")
-    new_password: str = Field(..., min_length=8, description="New password (min 8 characters)")
+    """Schema for password change."""
     
-    model_config = ConfigDict(
-        json_schema_extra={
+    current_password: str = Field(..., description="Current password")
+    new_password: str = Field(..., min_length=8, max_length=100, description="New password")
+    confirm_new_password: str = Field(..., description="New password confirmation")
+    
+    class Config:
+        json_schema_extra = {
             "example": {
                 "current_password": "oldpassword123",
-                "new_password": "newsecurepassword123"
+                "new_password": "newpassword123",
+                "confirm_new_password": "newpassword123"
             }
         }
-    )
+
+
+class Token(BaseModel):
+    """Schema for authentication token."""
+    
+    access_token: str
+    token_type: str = "bearer"
+    expires_in: int
+    user: UserResponse
+    
+    class Config:
+        json_schema_extra = {
+            "example": {
+                "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+                "token_type": "bearer",
+                "expires_in": 1800,
+                "user": {
+                    "id": 1,
+                    "email": "user@example.com",
+                    "username": "johndoe",
+                    "full_name": "John Doe",
+                    "is_active": True,
+                    "created_at": "2024-01-01T00:00:00Z"
+                }
+            }
+        }

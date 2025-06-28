@@ -1,4 +1,6 @@
-"""Database models for the Beauty Assistant application.
+#!/usr/bin/env python3
+"""
+SQLAlchemy ORM Models for Beauty Assistant API
 
 This module contains SQLAlchemy ORM models for users, face analysis,
 products, and recommendations.
@@ -103,12 +105,12 @@ class Recommendation(Base):
     
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
-    face_analysis_id = Column(Integer, ForeignKey("face_analyses.id"), nullable=False)
+    face_analysis_id = Column(Integer, ForeignKey("face_analyses.id"), nullable=True)
     product_id = Column(Integer, ForeignKey("products.id"), nullable=False)
     
     # Recommendation details
-    recommendation_type = Column(String(50), nullable=False)  # auto, manual, ar_tryout
-    match_score = Column(Float, nullable=True)  # 0.0 to 1.0
+    recommendation_type = Column(String(50), nullable=False)  # ai_generated, trending, etc.
+    confidence_score = Column(Float, nullable=True)
     reason = Column(Text, nullable=True)  # Why this product was recommended
     
     # User interaction

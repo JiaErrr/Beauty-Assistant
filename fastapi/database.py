@@ -1,4 +1,7 @@
-"""Database configuration and session management for Beauty Assistant API."""
+#!/usr/bin/env python3
+"""
+Database configuration and session management for the Beauty Assistant API.
+"""
 
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base

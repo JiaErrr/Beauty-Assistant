@@ -16,13 +16,49 @@ linter:
   # and their documentation is published at https://dart.dev/lints.
   #
   # Instead of disabling a lint rule for the entire project in the
-  # section below, it can also be suppressed for a single line of code
+  # sections below, it can also be suppressed for a single line of code
   # or a specific dart file by using the `// ignore: name_of_lint` and
   # `// ignore_for_file: name_of_lint` syntax on the line or in the file
   # producing the lint.
   rules:
     # avoid_print: false  # Uncomment to disable the `avoid_print` rule
     # prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
+    # Custom rules for better code quality
+    prefer_const_constructors: true
+    prefer_const_literals_to_create_immutables: true
+    prefer_const_declarations: true
+    prefer_final_fields: true
+    prefer_final_locals: true
+    prefer_final_in_for_each: true
+    avoid_unnecessary_containers: true
+    avoid_function_literals_in_foreach_calls: true
+    avoid_redundant_argument_values: true
+    avoid_returning_null_for_void: true
+    avoid_slow_async_io: true
+    avoid_type_to_string: true
+    avoid_unused_constructor_parameters: true
+    avoid_void_async: true
+    cancel_subscriptions: true
+    close_sinks: true
+    comment_references: true
+    control_flow_in_finally: true
+    empty_statements: true
+    hash_and_equals: true
+    invariant_booleans: true
+    iterable_contains_unrelated_type: true
+    list_remove_unrelated_type: true
+    literal_only_boolean_expressions: true
+    no_adjacent_strings_in_list: true
+    no_duplicate_case_values: true
+    no_logic_in_create_state: true
+    prefer_void_to_null: true
+    test_types_in_equals: true
+    throw_in_finally: true
+    unnecessary_statements: true
+    unrelated_type_equality_checks: true
+    use_build_context_synchronously: true
+    use_key_in_widget_constructors: true
+    valid_regexps: true
 
 # Additional information about this file can be found at
 # https://dart.dev/guides/language/analysis-options

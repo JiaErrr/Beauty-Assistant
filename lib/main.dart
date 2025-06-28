@@ -1,27 +1,57 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'core/theme/app_theme.dart';
-import 'features/home/home.dart';
-import 'screens/sign_in_screen.dart';
+import 'package:flutter/services.dart';
+import 'package:get_it/get_it.dart';
 
-void main() {
+import 'core/di/app_module.dart';
+import 'core/theme/app_theme.dart';
+import 'core/constants/app_constants.dart';
+import 'features/home/presentation/pages/home_page.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  
+  // Initialize dependency injection
+  await AppModule.init();
+  
+  // Set preferred orientations
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
+  
+  // Set system UI overlay style
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.dark,
+      systemNavigationBarColor: Colors.white,
+      systemNavigationBarIconBrightness: Brightness.dark,
+    ),
+  );
+  
   runApp(const BeautyAssistantApp());
 }
 
-/// Main application widget for Beauty Assistant
 class BeautyAssistantApp extends StatelessWidget {
-  const BeautyAssistantApp({super.key});
+  const BeautyAssistantApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Beauty Assistant',
+      title: AppConstants.appName,
+      debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
-      debugShowCheckedModeBanner: false, // Hide debug banner
-      home: BlocProvider(
-        create: (context) => HomeModule.provideHomeBloc(),
-        child: const HomePage(),
-      ),
+      darkTheme: AppTheme.darkTheme,
+      themeMode: ThemeMode.light,
+      home: const HomePage(),
+      builder: (context, child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(
+            textScaleFactor: 1.0, // Prevent text scaling
+          ),
+          child: child!,
+        );
+      },
     );
   }
 }

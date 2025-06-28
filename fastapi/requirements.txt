@@ -1,4 +1,4 @@
-# FastAPI and core dependencies
+# FastAPI and server dependencies
 fastapi==0.115.12
 uvicorn[standard]==0.32.1
 

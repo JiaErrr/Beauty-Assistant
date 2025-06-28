@@ -1,4 +1,7 @@
-"""Configuration settings for the Beauty Assistant FastAPI application."""
+#!/usr/bin/env python3
+"""
+Configuration settings for the Beauty Assistant API.
+"""
 
 from pydantic_settings import BaseSettings
 from typing import Optional
@@ -11,7 +14,7 @@ class Settings(BaseSettings):
     db_host: str = "localhost"
     db_port: int = 3306
     db_user: str = "root"
-    db_password: str = "your-password-here"  # Changed for security
+    db_password: str = "Panda24685l$"
     db_name: str = "beauty_assistant"
     
     # Application configuration

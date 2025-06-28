@@ -48,37 +48,60 @@ def check_env_file():
     env_file = Path(".env")
     if not env_file.exists():
         print("❌ .env file not found!")
-        print("Please create a .env file with your Plesk database credentials.")
-        print("You can copy from .env.example and fill in your values.")
+        print("Creating a sample .env file...")
+        
+        sample_env = """# Database Configuration
+DB_HOST=localhost
+DB_PORT=3306
+DB_USER=root
+DB_PASSWORD=your_password_here
+DB_NAME=beauty_assistant
+
+# Application Configuration
+APP_NAME=Beauty Assistant API
+APP_VERSION=1.0.0
+DEBUG=True
+
+# Security Configuration
+SECRET_KEY=your-secret-key-change-in-production
+ALGORITHM=HS256
+ACCESS_TOKEN_EXPIRE_MINUTES=30
+"""
+        
+        with open(".env", "w") as f:
+            f.write(sample_env)
+        
+        print("✅ Sample .env file created. Please edit it with your database credentials.")
         return False
     
-    # Check if required variables are set
-    required_vars = ['DB_HOST', 'DB_NAME', 'DB_USER', 'DB_PASSWORD']
-    missing_vars = []
-    
-    with open(env_file, 'r') as f:
-        content = f.read()
-        for var in required_vars:
-            if f"{var}=" not in content or f"{var}=your_" in content:
-                missing_vars.append(var)
-    
-    if missing_vars:
-        print(f"❌ Please configure these variables in .env file: {', '.join(missing_vars)}")
-        return False
-    
-    print("✅ .env file configured")
     return True
+
+def test_database_connection():
+    """Test database connection before starting the server."""
+    try:
+        from config import settings
+        from database import engine
+        
+        # Test connection
+        with engine.connect() as connection:
+            result = connection.execute("SELECT 1")
+            print("✅ Database connection successful!")
+            return True
+            
+    except Exception as e:
+        print(f"❌ Database connection failed: {e}")
+        print("Please check your database configuration in .env file.")
+        return False
 
 def start_server():
     """Start the FastAPI server."""
-    print("Starting Beauty Assistant FastAPI server...")
+    print("🚀 Starting Beauty Assistant API server...")
     print("Server will be available at: http://localhost:8000")
-    print("API documentation at: http://localhost:8000/docs")
+    print("API Documentation: http://localhost:8000/docs")
     print("Press Ctrl+C to stop the server")
     print("-" * 50)
     
     try:
-        # Import and run the app
         import uvicorn
         uvicorn.run(
             "main:app",
@@ -88,33 +111,39 @@ def start_server():
             log_level="info"
         )
     except KeyboardInterrupt:
-        print("\nServer stopped by user")
+        print("\n👋 Server stopped by user")
     except Exception as e:
-        print(f"Error starting server: {e}")
-        print("\nTroubleshooting tips:")
-        print("1. Check your .env file configuration")
-        print("2. Verify your Plesk database credentials")
-        print("3. Ensure your database server is accessible")
+        print(f"❌ Error starting server: {e}")
 
 def main():
-    """Main function to start the server with checks."""
-    print("Beauty Assistant FastAPI Server")
+    """Main function to orchestrate the startup process."""
+    print("🎨 Beauty Assistant API Startup")
     print("=" * 40)
     
     # Check dependencies
+    print("📦 Checking dependencies...")
     missing = check_dependencies()
     if missing:
-        print(f"❌ Missing dependencies: {', '.join(missing)}")
-        print("Installing dependencies...")
-        if not install_dependencies():
-            print("Please install dependencies manually:")
-            print("pip install -r requirements.txt")
+        print(f"❌ Missing packages: {', '.join(missing)}")
+        if input("Install missing packages? (y/n): ").lower() == 'y':
+            if not install_dependencies():
+                return
+        else:
+            print("Cannot start server without required dependencies.")
             return
     else:
-        print("✅ All dependencies installed")
+        print("✅ All dependencies are installed")
     
     # Check .env file
+    print("⚙️  Checking configuration...")
     if not check_env_file():
+        print("Please configure your .env file and run the script again.")
+        return
+    
+    # Test database connection
+    print("🗄️  Testing database connection...")
+    if not test_database_connection():
+        print("Please fix database configuration and try again.")
         return
     
     # Start server
